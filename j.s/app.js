@@ -1,11 +1,13 @@
 'use script';
+let imagesElement = document.getElementById('images');
+
 let leftImageElement = document.getElementById('left-img');
 let middleImageElement = document.getElementById('middle-img');
 let rightImageElement = document.getElementById('right-img');
 
 
 //num of attempt
-let maxAttempts = 10;
+let maxAttempts = 25;
 //counters
 let userAttemptsCounter = 0;
 //decleared img
@@ -63,10 +65,14 @@ function renderThreeImages() {
     rightImageIndex = generateRandomIndex();
 
     //||
-    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === leftImageIndex) {
-        middleImageIndex = generateRandomIndex();
-        rightImageIndex = generateRandomIndex();
+    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex) {
         leftImageIndex = generateRandomIndex();
+        Pictuer.allPictures[leftImageIndex].shown++;
+        middleImageIndex = generateRandomIndex();
+        Pictuer.allPictures[middleImageIndex].shown++;
+
+        rightImageIndex = generateRandomIndex();
+        Pictuer.allPictures[rightImageIndex].shown++;
 
     }
     console.log(Pictuer.allPictures[leftImageIndex].source);
@@ -85,7 +91,6 @@ function renderThreeImages() {
 renderThreeImages();
 
 //handele clicking
-let imagesElement = document.getElementById('show-results');
 imagesElement.addEventListener('click', handleUserClick);
 
 function handleUserClick(event) {
@@ -94,22 +99,22 @@ function handleUserClick(event) {
 
     //add to attempts
     if (userAttemptsCounter <= maxAttempts) {
-
+        
         if (event.target.id === 'left-img') {
             Pictuer.allPictures[leftImageIndex].votes++;
             //    Pictuer.allPictures[leftImageIndex].shown++;
-          //  shown++;
+            //  shown++;
 
         } else if (event.target.id === 'middle-img') {
             Pictuer.allPictures[middleImageIndex].votes++;
             //  Pictuer.allPictures[middleImageIndex].shown++;
-           // shown++;
+            // shown++;
 
 
         } else {
             Pictuer.allPictures[rightImageIndex].votes++;
             //   Pictuer.allPictures[rightmageIndex].shown++;
-           // shown++;
+            // shown++;
 
         }
 
