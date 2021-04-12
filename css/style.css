@@ -1,0 +1,31 @@
+body{
+    background-color: darksalmon;
+}
+h1{
+    color: firebrick;
+    text-align: center;
+    margin-top: 55px;
+}
+input{
+    background-color: firebrick;
+    color: floralwhite;
+    height: 50px;
+    width: 110px;
+    margin-top: 50px;
+    margin-left: 60px;
+}
+
+#left-img{
+    height: 450px;
+    width: 450px;
+    margin-left: 60px;
+}
+
+#middle-img{
+    height: 450px;
+    width: 450px;
+}
+#right-img{
+    height: 450px;
+    width: 450px;
+}
