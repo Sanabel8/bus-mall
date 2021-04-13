@@ -1,5 +1,6 @@
 'use script';
-let container = document.getElementById('images');
+
+let contanier = document.getElementById('images');
 
 let leftImageElement = document.getElementById('left-img');
 let middleImageElement = document.getElementById('middle-img');
@@ -22,6 +23,8 @@ let shownArr = [];
 
 
 //Pascal
+
+
 function Pictuer(name, source) {
     this.name = name;
     this.source = source;
@@ -73,6 +76,7 @@ function renderThreeImages() {
 
     //||
     while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex) {
+        leftImageIndex = generateRandomIndex();
         middleImageIndex = generateRandomIndex();
 
         rightImageIndex = generateRandomIndex();
@@ -84,12 +88,18 @@ function renderThreeImages() {
     console.log(Pictuer.allPictures[rightImageIndex].source);
 
 
+    Pictuer.allPictures[leftImageIndex].shown++;
+    Pictuer.allPictures[middleImageIndex].shown++;
+    Pictuer.allPictures[rightImageIndex].shown++;
 
     leftImageElement.src = Pictuer.allPictures[leftImageIndex].source;
     Pictuer.allPictures[leftImageIndex].shown++;
 
     middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
     Pictuer.allPictures[middleImageIndex].shown++;
+
+
+    middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
 
     rightImageElement.src = Pictuer.allPictures[rightImageIndex].source;
     Pictuer.allPictures[rightImageIndex].shown++;
@@ -101,6 +111,7 @@ function renderThreeImages() {
     //     //let i = imagArr.includes('imagArr');
     //     //document.getElementById("imagArr").innerHTML = i;
 
+
 }
 
 renderThreeImages();
@@ -109,6 +120,8 @@ renderThreeImages();
 
 //handele clicking
 container.addEventListener('click', handleUserClick);
+
+contanier.addEventListener('click', handleUserClick);
 
 function handleUserClick(event) {
     console.log(event.target.id);
@@ -125,6 +138,8 @@ function handleUserClick(event) {
 
         } else if (event.target.id === 'right-image') {
             Goat.allGoats[rightImageIndex].votes++;
+
+        } else if (event.target.id === 'right-img') {
             Pictuer.allPictures[rightImageIndex].votes++;
 
         } else {
@@ -134,6 +149,7 @@ function handleUserClick(event) {
         renderThreeImages();
 
     } else {
+        contanier.removeEventListener('click', handleUserClick);
 
 
         let button = document.getElementById('button');
@@ -141,11 +157,32 @@ function handleUserClick(event) {
         button.addEventListener('click', showingList);
         button.hidden = false;
 
+        button.textContent = 'show-results';
+        
+        button.hidden = false;
+        button.addEventListener('click', showing);
+
         for (let i = 0; i < Pictuer.allPictures.length; i++) {
 
             votesArr.push(Pictuer.allPictures[i].votes);
             shownArr.push(Pictuer.allPictures[i].shown);
 
+        function showing() {
+
+            let list = document.getElementById('resultes-lists');
+
+            let pictureResulte;
+
+            for (let i = 0; Pictuer.allPictures.length; i++) {
+
+                pictureResulte = document.createElement('li');
+                list.appendChild(pictureResulte);
+                pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
+
+
+            }
+
+            button.removeEventListener('click', showing);
         }
         console.log(votesArr);
 
@@ -155,6 +192,10 @@ function handleUserClick(event) {
         //  remove event listener
 
         container.removeEventListener('click', handleUserClick);
+
+
+        //remove event listner
+
     }
 }
 
@@ -236,8 +277,6 @@ function chart() {
     });
 
 }
-
-
 
 
 
