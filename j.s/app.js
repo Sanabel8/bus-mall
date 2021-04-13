@@ -1,5 +1,5 @@
 'use script';
-let imagesElement = document.getElementById('images');
+let contanier = document.getElementById('images');
 
 let leftImageElement = document.getElementById('left-img');
 let middleImageElement = document.getElementById('middle-img');
@@ -7,13 +7,15 @@ let rightImageElement = document.getElementById('right-img');
 
 
 //num of attempt
-let maxAttempts = 25;
+let maxAttempts = 10;
 //counters
 let userAttemptsCounter = 0;
 //decleared img
 let leftImageIndex;
 let middleImageIndex;
 let rightImageIndex;
+
+
 
 function Pictuer(name, source) {
     this.name = name;
@@ -22,7 +24,6 @@ function Pictuer(name, source) {
     this.shown = 0;
 
     Pictuer.allPictures.push(this);
-
 }
 Pictuer.allPictures = [];
 
@@ -67,31 +68,30 @@ function renderThreeImages() {
     //||
     while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex) {
         leftImageIndex = generateRandomIndex();
-        Pictuer.allPictures[leftImageIndex].shown++;
         middleImageIndex = generateRandomIndex();
-        Pictuer.allPictures[middleImageIndex].shown++;
 
         rightImageIndex = generateRandomIndex();
-        Pictuer.allPictures[rightImageIndex].shown++;
 
     }
-    console.log(Pictuer.allPictures[leftImageIndex].source);
-    console.log(Pictuer.allPictures[middleImageIndex].source);
-    console.log(Pictuer.allPictures[rightImageIndex].source);
 
-
+    Pictuer.allPictures[leftImageIndex].shown++;
+    Pictuer.allPictures[middleImageIndex].shown++;
+    Pictuer.allPictures[rightImageIndex].shown++;
 
 
     leftImageElement.src = Pictuer.allPictures[leftImageIndex].source;
+
     middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
+
     rightImageElement.src = Pictuer.allPictures[rightImageIndex].source;
+
 
 }
 
 renderThreeImages();
 
 //handele clicking
-imagesElement.addEventListener('click', handleUserClick);
+contanier.addEventListener('click', handleUserClick);
 
 function handleUserClick(event) {
     console.log(event.target.id);
@@ -99,7 +99,7 @@ function handleUserClick(event) {
 
     //add to attempts
     if (userAttemptsCounter <= maxAttempts) {
-        
+
         if (event.target.id === 'left-img') {
             Pictuer.allPictures[leftImageIndex].votes++;
             //    Pictuer.allPictures[leftImageIndex].shown++;
@@ -111,40 +111,57 @@ function handleUserClick(event) {
             // shown++;
 
 
-        } else {
+        } else if (event.target.id === 'right-img') {
             Pictuer.allPictures[rightImageIndex].votes++;
             //   Pictuer.allPictures[rightmageIndex].shown++;
             // shown++;
 
+        } else {
+            userAttemptsCounter--;
         }
 
         renderThreeImages();
 
     } else {
-        let list = document.getElementById('resultes-lists');
-
-        let pictureResulte;
-
-        for (let i = 0; Pictuer.allPictures.length; i++) {
-
-            pictureResulte = document.createElement('li');
-            list.appendChild(pictureResulte);
-            pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
+        contanier.removeEventListener('click', handleUserClick);
 
 
+        let button = document.getElementById('button');
+
+        button.textContent = 'show-results';
+        
+        button.hidden = false;
+        button.addEventListener('click', showing);
+
+
+        function showing() {
+
+            let list = document.getElementById('resultes-lists');
+
+            let pictureResulte;
+
+            for (let i = 0; Pictuer.allPictures.length; i++) {
+
+                pictureResulte = document.createElement('li');
+                list.appendChild(pictureResulte);
+                pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
+
+
+            }
+
+            button.removeEventListener('click', showing);
         }
+
 
 
         //remove event listner
 
-        imagesElement.removeEventListener('click', handleUserClick);
+
     }
 
 
 
 }
-
-
 
 
 
