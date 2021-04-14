@@ -1,5 +1,6 @@
 'use script';
-let container = document.getElementById('images');
+
+let contanier = document.getElementById('images');
 
 let leftImageElement = document.getElementById('left-img');
 let middleImageElement = document.getElementById('middle-img');
@@ -22,12 +23,16 @@ let shownArr = [];
 
 
 //Pascal
+
+
 function Pictuer(name, source) {
     this.name = name;
     this.source = source;
     this.votes = 0;
     this.shown = 0;
+
     Pictuer.allPictures.push(this);
+
     namesArr.push(this.name);
 
 }
@@ -74,7 +79,9 @@ function renderThreeImages() {
     rightImageIndex = generateRandomIndex();
 
     //||
-    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex ||imagArr.includes(leftImageIndex) ||imagArr.includes(middleImageIndex)||imagArr.includes(rightImageIndex)) {
+
+    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex || imagArr.includes(leftImageIndex) || imagArr.includes(middleImageIndex) || imagArr.includes(rightImageIndex)) {
+        leftImageIndex = generateRandomIndex();
         middleImageIndex = generateRandomIndex();
         leftImageIndex = generateRandomIndex();
         rightImageIndex = generateRandomIndex();
@@ -92,8 +99,12 @@ function renderThreeImages() {
     middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
     Pictuer.allPictures[middleImageIndex].shown++;
 
+
+    middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
+
     rightImageElement.src = Pictuer.allPictures[rightImageIndex].source;
     Pictuer.allPictures[rightImageIndex].shown++;
+
 
 
 
@@ -104,7 +115,8 @@ renderThreeImages();
 
 
 //handele clicking
-container.addEventListener('click', handleUserClick);
+contanier.addEventListener('click', handleUserClick);
+
 
 function handleUserClick(event) {
     console.log(event.target.id);
@@ -121,6 +133,8 @@ function handleUserClick(event) {
 
         } else if (event.target.id === 'right-image') {
             Goat.allGoats[rightImageIndex].votes++;
+
+        } else if (event.target.id === 'right-img') {
             Pictuer.allPictures[rightImageIndex].votes++;
 
         } else {
@@ -130,9 +144,13 @@ function handleUserClick(event) {
         renderThreeImages();
 
     } else {
+      //  contanier.removeEventListener('click', handleUserClick);
 
 
         let button = document.getElementById('button');
+
+
+        button.textContent = 'show-results';
 
         button.addEventListener('click', showingList);
         button.hidden = false;
@@ -141,9 +159,10 @@ function handleUserClick(event) {
 
             votesArr.push(Pictuer.allPictures[i].votes);
             shownArr.push(Pictuer.allPictures[i].shown);
-
         }
-        console.log(votesArr);
+
+
+        
 
         // show the chart
         chart();
@@ -151,7 +170,12 @@ function handleUserClick(event) {
         //  remove event listener
 
         container.removeEventListener('click', handleUserClick);
+
+
+        //remove event listner
+
     }
+
 }
 
 
@@ -170,10 +194,10 @@ function showingList() {
     let pictureResulte;
 
 
-    for (let i = 0; Pictuer.allPictures.length; i++){
+    for (let i = 0; Pictuer.allPictures.length; i++) {
         pictureResulte = document.createElement('li');
-    list.appendChild(pictureResulte);
-    pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
+        list.appendChild(pictureResulte);
+        pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
 
     }
 
@@ -226,8 +250,6 @@ function chart() {
     });
 
 }
-
-
 
 
 
