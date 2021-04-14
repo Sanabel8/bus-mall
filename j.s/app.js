@@ -8,7 +8,7 @@ let rightImageElement = document.getElementById('right-img');
 
 
 //num of attempt
-let maxAttempts = 10;
+let maxAttempts = 25;
 //counters
 let userAttemptsCounter = 0;
 //decleared img
@@ -197,7 +197,7 @@ function showingList() {
     let list = document.getElementById('resultes-lists');
     let pictureResulte;
 
-   console.log(Pictuer.allPictures.length);
+
     for (let i = 0; i< Pictuer.allPictures.length; i++) {
         pictureResulte = document.createElement('li');
         list.appendChild(pictureResulte);
