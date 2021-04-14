@@ -8,7 +8,7 @@ let rightImageElement = document.getElementById('right-img');
 
 
 //num of attempt
-let maxAttempts = 10;
+let maxAttempts = 25;
 //counters
 let userAttemptsCounter = 0;
 //decleared img
@@ -169,7 +169,7 @@ function handleUserClick(event) {
 
         //  remove event listener
 
-        container.removeEventListener('click', handleUserClick);
+        contanier.removeEventListener('click', handleUserClick);
 
 
         //remove event listner
@@ -194,7 +194,7 @@ function showingList() {
     let pictureResulte;
 
 
-    for (let i = 0; Pictuer.allPictures.length; i++) {
+    for (let i = 0;i< Pictuer.allPictures.length; i++) {
         pictureResulte = document.createElement('li');
         list.appendChild(pictureResulte);
         pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
@@ -202,7 +202,7 @@ function showingList() {
     }
 
 
-    button.removeEventListener('click', showing);
+    button.removeEventListener('click', showingList);
 
 }
 
