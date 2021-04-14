@@ -31,7 +31,7 @@ button{
     width: 450px;
 }
 
-li{
+li:t{
     margin-top: 10px;
     list-style-type: square;
     color: firebrick;

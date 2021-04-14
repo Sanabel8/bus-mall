@@ -117,10 +117,10 @@ renderThreeImages();
 //handele clicking
 contanier.addEventListener('click', handleUserClick);
 
-
 function handleUserClick(event) {
     console.log(event.target.id);
     userAttemptsCounter++;
+    let votes2;
 
     //add to attempts
     if (userAttemptsCounter <= maxAttempts) {
@@ -159,6 +159,10 @@ function handleUserClick(event) {
 
             votesArr.push(Pictuer.allPictures[i].votes);
             shownArr.push(Pictuer.allPictures[i].shown);
+            console.log(Pictuer.allPictures[i].votes);
+
+          // updateStorege();
+
         }
 
 
@@ -194,11 +198,11 @@ function showingList() {
     let pictureResulte;
 
 
-    for (let i = 0;i< Pictuer.allPictures.length; i++) {
+    for (let i = 0; i< Pictuer.allPictures.length; i++) {
         pictureResulte = document.createElement('li');
         list.appendChild(pictureResulte);
         pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
-
+       console.log(Pictuer.allPictures[i]);
     }
 
 
@@ -255,12 +259,29 @@ function chart() {
 
 
 
+function updateStorege (){
+
+    let arrayString=JSON.stringify(Pictuer.allPictures);
+    console.log(arrayString);
+    localStorage.setItem('votes',arrayString);
+  
+
+}
+            
+function getVotesShown (){
+    let getStoreArr =localStorage.getItem('votes');
+    console.log(getStoreArr);
+
+  let votesData=JSON.parse(getStoreArr);
+  console.log(votesData);
 
 
+  if(votesData !== null){
 
+    Pictuer.allPictures=votesData
+  }
 
+ renderThreeImages();
 
-
-
-
-
+}
+getVotesShown();
