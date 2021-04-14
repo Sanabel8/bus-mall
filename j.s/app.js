@@ -16,7 +16,7 @@ let leftImageIndex;
 let middleImageIndex;
 let rightImageIndex;
 
-let namesArr = [];
+
 let votesArr = [];
 let shownArr = [];
 
@@ -80,7 +80,7 @@ function renderThreeImages() {
 
     //||
 
-    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex || imagArr.includes(leftImageIndex) || imagArr.includes(middleImageIndex) || imagArr.includes(rightImageIndex)) {
+    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex) {
         leftImageIndex = generateRandomIndex();
         middleImageIndex = generateRandomIndex();
         leftImageIndex = generateRandomIndex();
@@ -88,9 +88,6 @@ function renderThreeImages() {
 
     }
 
-
-    imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
-    console.log(imagArr);
 
 
     leftImageElement.src = Pictuer.allPictures[leftImageIndex].source;
@@ -120,7 +117,6 @@ contanier.addEventListener('click', handleUserClick);
 function handleUserClick(event) {
     console.log(event.target.id);
     userAttemptsCounter++;
-    let votes2;
 
     //add to attempts
     if (userAttemptsCounter <= maxAttempts) {
@@ -134,9 +130,6 @@ function handleUserClick(event) {
         } else if (event.target.id === 'right-image') {
             Goat.allGoats[rightImageIndex].votes++;
 
-        } else if (event.target.id === 'right-img') {
-            Pictuer.allPictures[rightImageIndex].votes++;
-
         } else {
             userAttemptsCounter--;
         }
@@ -144,14 +137,14 @@ function handleUserClick(event) {
         renderThreeImages();
 
     } else {
-      //  contanier.removeEventListener('click', handleUserClick);
+        contanier.removeEventListener('click', handleUserClick);
 
 
         let button = document.getElementById('button');
 
 
         button.textContent = 'show-results';
-
+        
         button.addEventListener('click', showingList);
         button.hidden = false;
 
@@ -159,40 +152,12 @@ function handleUserClick(event) {
 
             votesArr.push(Pictuer.allPictures[i].votes);
             shownArr.push(Pictuer.allPictures[i].shown);
-            console.log(Pictuer.allPictures[i].votes);
-
-          // updateStorege();
-
         }
 
 
-        
 
-        // show the chart
-        chart();
+        function showingList() {
 
-        //  remove event listener
-
-        contanier.removeEventListener('click', handleUserClick);
-
-
-        //remove event listner
-
-    }
-
-}
-
-
-
-
-
-
-//renderThreeImages();
-
-
-
-//
-function showingList() {
 
     let list = document.getElementById('resultes-lists');
     let pictureResulte;
@@ -210,48 +175,12 @@ function showingList() {
 
 }
 
+        
 
 
 
-
-// chart.js
-function chart() {
-    let ctx = document.getElementById('myChart').getContext('2d');
-
-    let chart = new Chart(ctx, {
-        // what type is the chart
-        type: 'bar',
-
-        //  the data for showing
-        data: {
-            //  for the names
-            labels: namesArr,
-
-            datasets: [
-                {
-                    label: 'Picture votes',
-                    data: votesArr,
-                    backgroundColor: [
-                        'white',
-                    ],
-
-                    borderWidth: 1
-                },
-
-                {
-                    label: 'Picture shown',
-                    data: shownArr,
-                    backgroundColor: [
-                        'firebrick',
-                    ],
-
-                    borderWidth: 1
-                }
-
-            ]
-        },
-        options: {}
-    });
+       
+    }
 
 }
 
@@ -259,29 +188,13 @@ function chart() {
 
 
 
-function updateStorege (){
-
-    let arrayString=JSON.stringify(Pictuer.allPictures);
-    console.log(arrayString);
-    localStorage.setItem('votes',arrayString);
-  
-
-}
-            
-function getVotesShown (){
-    let getStoreArr =localStorage.getItem('votes');
-    console.log(getStoreArr);
-
-  let votesData=JSON.parse(getStoreArr);
-  console.log(votesData);
 
 
-  if(votesData !== null){
 
-    Pictuer.allPictures=votesData
-  }
 
- renderThreeImages();
 
-}
-getVotesShown();
+
+
+
+
+
