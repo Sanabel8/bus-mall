@@ -15,6 +15,8 @@ let leftImageIndex;
 let middleImageIndex;
 let rightImageIndex;
 
+let votesArr = [];
+let shownArr = [];
 
 
 function Pictuer(name, source) {
@@ -130,17 +132,24 @@ function handleUserClick(event) {
 
         button.textContent = 'show-results';
         
+        button.addEventListener('click', showingList);
         button.hidden = false;
-        button.addEventListener('click', showing);
+
+        for (let i = 0; i < Pictuer.allPictures.length; i++) {
+
+            votesArr.push(Pictuer.allPictures[i].votes);
+            shownArr.push(Pictuer.allPictures[i].shown);
+        }
 
 
-        function showing() {
+
+        function showingList() {
 
             let list = document.getElementById('resultes-lists');
 
             let pictureResulte;
 
-            for (let i = 0; Pictuer.allPictures.length; i++) {
+            for (let i = 0;i< Pictuer.allPictures.length; i++) {
 
                 pictureResulte = document.createElement('li');
                 list.appendChild(pictureResulte);
@@ -149,7 +158,7 @@ function handleUserClick(event) {
 
             }
 
-            button.removeEventListener('click', showing);
+            button.removeEventListener('click', showingList);
         }
 
 
