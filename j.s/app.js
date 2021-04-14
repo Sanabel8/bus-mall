@@ -28,9 +28,10 @@ function Pictuer(name, source) {
     this.votes = 0;
     this.shown = 0;
     Pictuer.allPictures.push(this);
+    namesArr.push(this.name);
+
 }
 Pictuer.allPictures = [];
-let imagArr = [];
 
 
 //instantces
@@ -63,6 +64,7 @@ function generateRandomIndex() {
 }
 console.log(generateRandomIndex());
 
+let imagArr = [];
 
 
 function renderThreeImages() {
@@ -72,17 +74,16 @@ function renderThreeImages() {
     rightImageIndex = generateRandomIndex();
 
     //||
-    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex) {
+    while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex ||imagArr.includes(leftImageIndex) ||imagArr.includes(middleImageIndex)||imagArr.includes(rightImageIndex)) {
         middleImageIndex = generateRandomIndex();
-
+        leftImageIndex = generateRandomIndex();
         rightImageIndex = generateRandomIndex();
 
     }
 
-    console.log(Pictuer.allPictures[leftImageIndex].source);
-    console.log(Pictuer.allPictures[middleImageIndex].source);
-    console.log(Pictuer.allPictures[rightImageIndex].source);
 
+    imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
+    console.log(imagArr);
 
 
     leftImageElement.src = Pictuer.allPictures[leftImageIndex].source;
@@ -95,11 +96,6 @@ function renderThreeImages() {
     Pictuer.allPictures[rightImageIndex].shown++;
 
 
-    //     imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
-    //     console.log(imagArr);
-
-    //     //let i = imagArr.includes('imagArr');
-    //     //document.getElementById("imagArr").innerHTML = i;
 
 }
 
@@ -163,11 +159,7 @@ function handleUserClick(event) {
 
 
 
-renderThreeImages();
-
-
-
-
+//renderThreeImages();
 
 
 
@@ -178,19 +170,17 @@ function showingList() {
     let pictureResulte;
 
 
-    for (let i = 0; Pictuer.allPictures.length; i++)
+    for (let i = 0; Pictuer.allPictures.length; i++){
         pictureResulte = document.createElement('li');
     list.appendChild(pictureResulte);
     pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
 
-
+    }
 
 
     button.removeEventListener('click', showing);
 
 }
-
-
 
 
 
@@ -214,7 +204,7 @@ function chart() {
                     label: 'Picture votes',
                     data: votesArr,
                     backgroundColor: [
-                        'rgb(251, 93, 76)',
+                        'white',
                     ],
 
                     borderWidth: 1
@@ -224,7 +214,7 @@ function chart() {
                     label: 'Picture shown',
                     data: shownArr,
                     backgroundColor: [
-                        'black',
+                        'firebrick',
                     ],
 
                     borderWidth: 1
