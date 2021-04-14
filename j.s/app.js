@@ -145,7 +145,7 @@ function handleUserClick(event) {
 
 
         button.textContent = 'show-results';
-        
+
         button.addEventListener('click', showingList);
         button.hidden = false;
 
@@ -160,27 +160,27 @@ function handleUserClick(event) {
         function showingList() {
 
 
-    let list = document.getElementById('resultes-lists');
-    let pictureResulte;
+            let list = document.getElementById('resultes-lists');
+            let pictureResulte;
 
 
-    for (let i = 0; i< Pictuer.allPictures.length; i++) {
-        pictureResulte = document.createElement('li');
-        list.appendChild(pictureResulte);
-        pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
-       console.log(Pictuer.allPictures[i]);
-    }
+            for (let i = 0; i < Pictuer.allPictures.length; i++) {
+                pictureResulte = document.createElement('li');
+                list.appendChild(pictureResulte);
+                pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
+                console.log(Pictuer.allPictures[i]);
+            }
 
 
-    button.removeEventListener('click', showingList);
+            button.removeEventListener('click', showingList);
 
-}
-
-        
+        }
 
 
 
-       
+
+
+
     }
 
 }
