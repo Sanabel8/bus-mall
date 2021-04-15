@@ -8,7 +8,7 @@ let rightImageElement = document.getElementById('right-img');
 
 
 //num of attempt
-let maxAttempts = 10;
+let maxAttempts = 25;
 //counters
 let userAttemptsCounter = 0;
 //decleared img
@@ -133,10 +133,6 @@ function handleUserClick(event) {
 
         } else if (event.target.id === 'right-image') {
             Goat.allGoats[rightImageIndex].votes++;
-
-        } else if (event.target.id === 'right-img') {
-            Pictuer.allPictures[rightImageIndex].votes++;
-
         } else {
             userAttemptsCounter--;
         }
@@ -250,6 +246,12 @@ function chart() {
     });
 
 }
+
+
+
+
+
+
 
 
 
