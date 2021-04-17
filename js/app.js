@@ -8,7 +8,7 @@ let rightImageElement = document.getElementById('right-img');
 
 
 //num of attempt
-let maxAttempts = 10;
+let maxAttempts = 25;
 //counters
 let userAttemptsCounter = 0;
 //decleared img
@@ -89,7 +89,7 @@ function renderThreeImages() {
 
 
     //imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
-   // console.log(imagArr);
+    // console.log(imagArr);
 
 
     leftImageElement.src = Pictuer.allPictures[leftImageIndex].source;
@@ -132,10 +132,6 @@ function handleUserClick(event) {
 
         } else if (event.target.id === 'right-image') {
             Goat.allGoats[rightImageIndex].votes++;
-
-        } else if (event.target.id === 'right-img') {
-            Pictuer.allPictures[rightImageIndex].votes++;
-
         } else {
             userAttemptsCounter--;
         }
@@ -145,7 +141,7 @@ function handleUserClick(event) {
 
 
     } else {
-      //  contanier.removeEventListener('click', handleUserClick);
+        //  contanier.removeEventListener('click', handleUserClick);
 
 
         let button = document.getElementById('button');
@@ -163,7 +159,7 @@ function handleUserClick(event) {
         }
 
 
-        
+
 
         // show the chart
         chart();
@@ -177,7 +173,7 @@ function handleUserClick(event) {
 
     }
 
-   // getVotesShown();
+    // getVotesShown();
 }
 
 
@@ -195,12 +191,12 @@ function showingList() {
     let list = document.getElementById('resultes-lists');
     let pictureResulte;
 
-   console.log(Pictuer.allPictures.length);
-    for (let i = 0; i< Pictuer.allPictures.length; i++) {
+    console.log(Pictuer.allPictures.length);
+    for (let i = 0; i < Pictuer.allPictures.length; i++) {
         pictureResulte = document.createElement('li');
         list.appendChild(pictureResulte);
         pictureResulte.textContent = `${Pictuer.allPictures[i].name} has ${Pictuer.allPictures[i].votes} votes ,and was seen ${Pictuer.allPictures[i].shown} times`
-       console.log(Pictuer.allPictures[i]);
+        console.log(Pictuer.allPictures[i]);
     }
 
 
@@ -255,29 +251,36 @@ function chart() {
 
 
 
-function updateStorege (){
 
-    let arrayString=JSON.stringify(Pictuer.allPictures);
+function updateStorege() {
+
+    let arrayString = JSON.stringify(Pictuer.allPictures);
     console.log(arrayString);
-    localStorage.setItem('votes',arrayString);
-  
+    localStorage.setItem('votes', arrayString);
+
 
 }
-            
-function getVotesShown (){
-    let getStoreArr =localStorage.getItem('votes');
+
+function getVotesShown() {
+    let getStoreArr = localStorage.getItem('votes');
     console.log(getStoreArr);
 
-  let votesData=JSON.parse(getStoreArr);
-  console.log(votesData);
+    let votesData = JSON.parse(getStoreArr);
+    console.log(votesData);
 
 
-  if(votesData !== null){
+    if (votesData !== null) {
 
-    Pictuer.allPictures=votesData
-  }
+        Pictuer.allPictures = votesData
+    }
 
- renderThreeImages();
+    renderThreeImages();
 
 }
 getVotesShown();
+
+
+
+
+
+
