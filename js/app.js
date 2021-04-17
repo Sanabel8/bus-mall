@@ -83,30 +83,29 @@ function renderThreeImages() {
     while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex || imagArr.includes(leftImageIndex) || imagArr.includes(middleImageIndex) || imagArr.includes(rightImageIndex)) {
         leftImageIndex = generateRandomIndex();
         middleImageIndex = generateRandomIndex();
-        leftImageIndex = generateRandomIndex();
         rightImageIndex = generateRandomIndex();
 
     }
 
 
-    imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
-    console.log(imagArr);
+    //imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
+   // console.log(imagArr);
 
 
     leftImageElement.src = Pictuer.allPictures[leftImageIndex].source;
-    Pictuer.allPictures[leftImageIndex].shown++;
 
     middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
-    Pictuer.allPictures[middleImageIndex].shown++;
 
-
-    middleImageElement.src = Pictuer.allPictures[middleImageIndex].source;
 
     rightImageElement.src = Pictuer.allPictures[rightImageIndex].source;
+
+    Pictuer.allPictures[leftImageIndex].shown++;
+    Pictuer.allPictures[middleImageIndex].shown++;
     Pictuer.allPictures[rightImageIndex].shown++;
 
 
-
+    imagArr = [leftImageIndex, middleImageIndex, rightImageIndex];
+    console.log(imagArr);
 
 }
 
@@ -117,10 +116,10 @@ renderThreeImages();
 //handele clicking
 contanier.addEventListener('click', handleUserClick);
 
+
 function handleUserClick(event) {
     console.log(event.target.id);
     userAttemptsCounter++;
-    let votes2;
 
     //add to attempts
     if (userAttemptsCounter <= maxAttempts) {
@@ -142,6 +141,8 @@ function handleUserClick(event) {
         }
 
         renderThreeImages();
+        updateStorege();
+
 
     } else {
       //  contanier.removeEventListener('click', handleUserClick);
@@ -159,10 +160,6 @@ function handleUserClick(event) {
 
             votesArr.push(Pictuer.allPictures[i].votes);
             shownArr.push(Pictuer.allPictures[i].shown);
-            console.log(Pictuer.allPictures[i].votes);
-
-          // updateStorege();
-
         }
 
 
@@ -180,6 +177,7 @@ function handleUserClick(event) {
 
     }
 
+   // getVotesShown();
 }
 
 
@@ -254,8 +252,6 @@ function chart() {
     });
 
 }
-
-
 
 
 
